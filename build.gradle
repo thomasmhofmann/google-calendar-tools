@@ -1,3 +1,7 @@
+plugins {
+  id 'com.github.johnrengelman.shadow' version '5.1.0'
+}
+
 apply plugin: 'java'
 apply plugin: 'application'
 
@@ -14,4 +18,5 @@ dependencies {
     compile 'com.google.api-client:google-api-client:1.23.0'
     compile 'com.google.oauth-client:google-oauth-client-jetty:1.23.0'
     compile 'com.google.apis:google-api-services-calendar:v3-rev305-1.23.0'
+    compile 'info.picocli:picocli:4.0.0-beta-2'
 }

@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "GoogleCalendarTools (Launch) Action - Touch",
+            "request": "launch",
+            "mainClass": "de.randombits.google.calendar.GoogleCalendarTools",
+            "args": "-a=touch -s=2006-07-29 -e=2009-12-31"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - TouchOldEntries",
             "request": "launch",
             "mainClass": "de.randombits.google.calendar.TouchOldEntries",
@@ -24,12 +31,12 @@
             "request": "launch",
             "mainClass": "de.randombits.google.calendar.DeleteCSVConvertDuplicates",
             "projectName": "google-calendar-cleanup"
-        }
+        },
         {
             "type": "java",
             "name": "Debug (Launch) - Current File",
             "request": "launch",
             "mainClass": "${file}"
-        },
+        }
     ]
 }
