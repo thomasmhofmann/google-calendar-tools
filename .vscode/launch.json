@@ -6,37 +6,58 @@
     "configurations": [
         {
             "type": "java",
-            "name": "GoogleCalendarTools (Launch) Action - Touch",
+            "name": "Touch",
             "request": "launch",
             "mainClass": "de.randombits.google.calendar.GoogleCalendarTools",
-            "args": "-a=touch -s=2006-07-29 -e=2009-12-31"
+            "args": "-f=credentials.json -r=3 -t=10000 -c=hu5u02j4imco54gq7f2665k9ig@group.calendar.google.com touch -s=2005-09-29 -e=2018-07-31",
+            "vmArgs": "-Dpicocli.ansi=true"
         },
         {
             "type": "java",
-            "name": "CodeLens (Launch) - TouchOldEntries",
+            "name": "Move",
             "request": "launch",
-            "mainClass": "de.randombits.google.calendar.TouchOldEntries",
-            "projectName": "google-calendar-cleanup"
+            "mainClass": "de.randombits.google.calendar.GoogleCalendarTools",
+            "args": "-f=credentials.json move -s=2006-05-01 -e=2006-10-16 -k=\"IOD\" --timed-events=true -t=hu5u02j4imco54gq7f2665k9ig@group.calendar.google.com",
+            "vmArgs": "-Dpicocli.ansi=true"
         },
         {
             "type": "java",
-            "name": "CodeLens (Launch) - DeleteByKeyword",
+            "name": "Delete",
             "request": "launch",
-            "mainClass": "de.randombits.google.calendar.DeleteByKeyword",
-            "projectName": "google-calendar-cleanup"
+            "mainClass": "de.randombits.google.calendar.GoogleCalendarTools",
+            "args": "-f=credentials.json delete -s=2000-05-01 -e=2019-10-16 -k=\"Timereport\"",
+            "vmArgs": "-Dpicocli.ansi=true"
         },
         {
             "type": "java",
-            "name": "Debug (Launch) - DeleteCSVConvertDuplicates",
+            "name": "List",
             "request": "launch",
-            "mainClass": "de.randombits.google.calendar.DeleteCSVConvertDuplicates",
-            "projectName": "google-calendar-cleanup"
+            "mainClass": "de.randombits.google.calendar.GoogleCalendarTools",
+            "args": "-f=credentials.json -b=30 list -s=2000-05-01 -e=2019-10-16 -k=\"\" -d",
+            "vmArgs": "-Dpicocli.ansi=true"
+        },
+        {
+            "type": "java",
+            "name": "List Calendars",
+            "request": "launch",
+            "mainClass": "de.randombits.google.calendar.GoogleCalendarTools",
+            "args": "-f=credentials.json listCalendars",
+            "vmArgs": "-Dpicocli.ansi=true"
+        },
+        {
+            "type": "java",
+            "name": "RemoveColor",
+            "request": "launch",
+            "mainClass": "de.randombits.google.calendar.GoogleCalendarTools",
+            "args": "-f=credentials.json -c=hu5u02j4imco54gq7f2665k9ig@group.calendar.google.com removeColor -s=2001-10-12 -e=2019-10-16 -k=\"LIMA on Web\" -c=16A765",
+            "vmArgs": "-Dpicocli.ansi=true"
         },
         {
             "type": "java",
             "name": "Debug (Launch) - Current File",
             "request": "launch",
-            "mainClass": "${file}"
+            "mainClass": "${file}",
+            "vmArgs": "-Dpicocli.ansi=true"
         }
     ]
 }
