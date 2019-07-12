@@ -305,11 +305,6 @@ public class GoogleCalendarTools implements Callable<Integer> {
                 rateLimit(events.size() * 2);
                 batchRequest.execute();
             }
-            // System.out.printf("* Sleeping for %d seconds to avoid rate limit being overrun.\n",
-            //         this.requestInterval.getSeconds());
-        //     Thread.sleep(this.requestInterval.toMillis());
-        // } catch (InterruptedException e) {
-        //     Thread.currentThread().interrupt();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -340,11 +335,6 @@ public class GoogleCalendarTools implements Callable<Integer> {
                 rateLimit(events.size());
                 batchRequest.execute();
             }
-            // System.out.printf("* Sleeping for %d seconds to avoid rate limit being overrun.\n",
-            // this.requestInterval.getSeconds());
-            // Thread.sleep(this.requestInterval.toMillis());
-            // } catch (InterruptedException e) {
-            // Thread.currentThread().interrupt();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -375,11 +365,6 @@ public class GoogleCalendarTools implements Callable<Integer> {
                 rateLimit(events.size());
                 batchRequest.execute();
             }
-            // System.out.printf("* Sleeping for %d seconds to avoid rate limit being overrun.\n",
-            // this.requestInterval.getSeconds());
-            // Thread.sleep(this.requestInterval.toMillis());
-            // } catch (InterruptedException e) {
-            // Thread.currentThread().interrupt();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -419,11 +404,6 @@ public class GoogleCalendarTools implements Callable<Integer> {
                 rateLimit(events.size());
                 batchRequest.execute();
             }
-            // System.out.printf("* Sleeping for %d seconds to avoid rate limit being overrun.\n",
-            // this.requestInterval.getSeconds());
-            // Thread.sleep(this.requestInterval.toMillis());
-            // } catch (InterruptedException e) {
-            // Thread.currentThread().interrupt();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
