@@ -1,1 +1,128 @@
+:version: '1.0.0'
+
 # google-calendar-tools
+
+## Introduction
+_GoogleCalendarTools_ is a command-line application written in Java.
+It uses the Google Calendar API to process larger amounts of Calendar entries which is tedious to do in Google Calendar or on a Smartphone.
+
+## Motivation
+I have calendar entries dating back to the year 2000 on my Google Calendar.
+My smartphone only syncs past events one year back.
+I wanted to have all my calendar entries also synced to my smartphone.
+Looking for a solution I came across https://forums.androidcentral.com/sprint-galaxy-s-iii/327507-old-google-calendar-events-dont-show-new-phone.html[this^] and https://forums.androidcentral.com/sprint-galaxy-s-iii/327507-old-google-calendar-events-dont-show-new-phone.html[this^].
+There, the solution is sketched as exporting all the calendar entries and re-importing them.
+
+I did this but I imported them on the smartphone instead of using the Web UI.
+I don't know if it makes a difference or not if this is done on the Web Google Calendar itself but after importing them I had about 8000 duplicates.
+To get rid of this mess I was looking for a solution that could be scripted.
+I found https://webapps.stackexchange.com/questions/19513/how-to-delete-all-events-on-many-dates-all-at-once-but-not-the-whole-calendar-in/47768#47768[this^] post and experimented with some https://script.google.com/home[App Scripts^].
+
+I quickly learned that it would be easier for me to use the Java Calendar API for this.
+This is how this tool was born.
+
+## Prerequisites
+In order to use this application it is necessary to enable the https://developers.google.com/calendar/overview[Google Calendar API^] for your account, create a Google Cloud project and download a client configuration file (named `credentials.json` or similar).
+
+You can follow the steps outlined in this https://developers.google.com/calendar/quickstart/java[Java Quickstart^] guide.
+In step 1 there is a button to create a new Cloud Platform project and automatically enable the Google Calendar API.
+Download the client configuration and save it for later.
+As an alternative you can do these steps manually in the https://console.cloud.google.com[Google Cloud Console^].
+
+## Features
+_GoogleCalendarTools_ supports the following functionality:
+
+* *Listing the calendars of your account*. This is useful to get the calendar ID associated with the calendars. You need them for the other commands.
+The primary calendar can be used without knowing the real ID by using the artifical ID `primary`. This is also the default for all commands needing a calendar ID when non is passed to the tool
+* *Listing events of a calendar. There is an option to switch between summary or detailed results.
+* *Touching calendars entries*. This changes the summary of the calendar entry and reverts that change again. This will mark the calendar entry as being changed and it will thus be synched (to a smartphone for example) even if it is way back in the past.
+* *Deleting calendar entries*. This is useful for batch-deleting entries.
+* *Moving calendar entries*. This allows for moving calendar entries from one calendar to another (e.g. from private to work calendar).
+* *Removing the color associated with a calendar entry*. Each Google Calendar has a color associated with it. This color can be overriden on each calendar entry. Use this command to reset the custom color for calendar entries.
+
+### General Options
+
+* The tool batches API requests. You can set the batch size being used. Each API call inside a batch counts as a separate request against the quota though.
+* The calendar ID to read from can be set.
+* When a command is used that will modify calendar entries, the tool will first read entries from the calendar specified (to get the IDs of the entries that should be modified).
+In a second phase the entries are manipulated. You can tell the tool to do a _dry-run_ to make sure the correct entries will be processed. In dry-run mode no manipulations will be done.
+* The client configuration file must be passed to the tool.
+* Google APIs have a rate limit / quota. By default currently 500 API calls per 100 seconds are allowed. A rate limit to use can be set (number of API calles per second).
+* A read-timeout for API calls can be specified.
+
+### Technical Details
+_GoogleCalendarTools_ uses https://github.com/remkop/picocli[Picocli^] to parse the command line and a https://github.com/google/guava/blob/master/guava/src/com/google/common/util/concurrent/RateLimiter.java[RateLimiter^] to make sure the API call quota is not overrun.
+In addition it support automatic retries with exponential backoff in case of API errors.
+The https://github.com/johnrengelman/shadow[Gradle Shadow plugin] is used to build an uber JAR.
+
+## How to Run
+* Clone the repository
+* Make sure a Java SDK version 8 is available
+* Run 
+----
+./gradlew build
+----
+* Run the generated application from directory `libs` by invoking
+----
+java -jar google-calendar-tools-{version}-all.jar
+----
+* You can also unpack the generated distribution archives `build\distributions\google-calendar-tools-shadow-1.0.tar` and `build\distributions\google-calendar-tools-shadow-1.0.zip` and start the application using the batch scripts provided in the `bin` subdirectory of the archive.
+
+## Sample Usage
+The samples assume the file `credentials.json` is placed in the same directory as the tool.
+
+### Listing all Calendars
+
+----
+-f=credentials.json listCalendars
+----
+
+### Touching some Calendar Entries
+The sample uses a specific calendar (`-c`) and restricts the calendar entries being processed to be between 2005-09-29 (`-s`) and 2018-07-31 (`-e`).
+----
+-f=credentials.json -r=3 -t=10000 -c=hu5u02j4imadsadsadasd@group.calendar.google.com touch -s=2005-09-29 -e=2018-07-31"
+----
+
+### Moving Calendar Entries
+The sample uses the default (primary) calendar.
+The target calendar of the move operation is specified (`-t`).
+Only calendar entries between 2006-05-01 (`-s`) and 2006-10-16 (`-e`) are processed.
+In addition, only entries that contain the keyword _IOD_ (`-k`) are processed.
+The `--timed-events` option tells the tool to not process events with a specific time specified but only all-day-events.
+
+----
+-f=credentials.json move -s=2006-05-01 -e=2006-10-16 -k=IOD --timed-events=false -t=hu5u02j4imcsadweeq7f2665k9ig@group.calendar.google.com
+----
+
+### Deleting Calendar Entries
+The sample uses the default (primary) calendar.
+Only calendar entries between 2006-05-01 (`-s`) and 2006-10-16 (`-e`) are processed. 
+In addition, only entries that contain the keyword _Timereport_ (`-k`) are deleted.
+----
+-f=credentials.json delete -s=2000-05-01 -e=2019-10-16 -k=Timereport
+----
+
+### Listing Calendar Entries
+The sample uses the default (primary) calendar.
+Only calendar entries between 2000-05-01 (`-s`) and 2019-10-16 (`-e`) are processed.
+A batch size of 30 is used (`-b`). 
+This will cause the API call to retrieve the calendar entries to also return the same number of entries per call.
+The output will be detailed (`-d`).
+
+----
+-f=credentials.json -b=30 list -s=2000-05-01 -e=2019-10-16 -d
+----
+
+### Removing Color Information from Calendar Events
+The sample uses a specific calendar (`-c`).
+Only calendar entries between 2001-10-12 (`-s`) and 2019-10-16 (`-e`) are processed.
+In addition, only entries that contain the phrase _False Color_ (`-k`) are processed.
+Only entries that are currently set to the color _16A765_ (HEX notation) (`-c`) are processed.
+
+----
+-f=credentials.json -c=hu5u02j4imco54wdwdw665k9ig@group.calendar.google.com removeColor -s=2001-10-12 -e=2019-10-16 -k="False Color" -c=16A765
+----
+
+## Tips
+You can force colored console output by passing `-Dpicocli.ansi=true` to the JVM in case the color-capability of your shell is not recognized automatically.
+For more information about the capabilities of picocli refer to https://picocli.info[picocli.info] website.

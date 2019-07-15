@@ -17,7 +17,7 @@
             "name": "Move",
             "request": "launch",
             "mainClass": "de.randombits.google.calendar.GoogleCalendarTools",
-            "args": "-f=credentials.json move -s=2006-05-01 -e=2006-10-16 -k=\"IOD\" --timed-events=true -t=hu5u02j4imco54gq7f2665k9ig@group.calendar.google.com",
+            "args": "-f=credentials.json move -s=2006-05-01 -e=2006-10-16 -k=\"IOD\" --timed-events=false -t=hu5u02j4imco54gq7f2665k9ig@group.calendar.google.com",
             "vmArgs": "-Dpicocli.ansi=true"
         },
         {
