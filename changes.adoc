@@ -1,0 +1,4 @@
+# Change History
+
+* Version 1.0.0 - 2019-07-30
+** Initial publication on public GitHub.

@@ -73,7 +73,7 @@ public class GoogleCalendarTools implements Callable<Integer> {
 
     @Option(names = {"-r", "--rate-limit"},
             description = "Rate limit to apply to API calls. A double value for allowed calls per second. Default is ${DEFAULT-VALUE}.")
-    private double rateLimit;
+    private double rateLimit = 3.0;
 
     @Option(names = {"-t", "--read-timeout"},
             description = "Read-timeout for API calls in milliseconds. Default is ${DEFAULT-VALUE}.")
@@ -128,7 +128,7 @@ public class GoogleCalendarTools implements Callable<Integer> {
     }
 
     @Command(name = "list",
-            description = "Lists entries in the calender. This is useful to get a quick overview when used with keyword for example.")
+            description = "List entries in the calender. This is useful to get a quick overview when used with keyword for example.")
     public void commandListEvents(
             @Option(names = {"-d", "--details"},
                     description = "Show details of the events") boolean showDetails,
@@ -148,7 +148,7 @@ public class GoogleCalendarTools implements Callable<Integer> {
     }
 
     @Command(name = "touch",
-            description = "Touches entries in the calender. This is useful to force syncing of older calendar entries to an Android device for example.")
+            description = "Touch entries in the calender. This is useful to force syncing of older calendar entries to an Android device for example.")
     public void commandTouchEvents(@Mixin DateRange dateRange, @Mixin SearchOptions searchOptions) {
         System.out.println("Touching calendar entries...");
 
@@ -165,7 +165,7 @@ public class GoogleCalendarTools implements Callable<Integer> {
     }
 
     @Command(name = "delete",
-            description = "Deletes entries from a calendar that match a search term.")
+            description = "Delete entries from a calendar.")
     public void commandDeleteEvents(@Mixin DateRange dateRange,
             @Mixin SearchOptions searchOptions) {
         System.out.println("Deleting calendar entries...");

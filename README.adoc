@@ -68,6 +68,11 @@ java -jar google-calendar-tools-{version}-all.jar
 ----
 * You can also unpack the generated distribution archives `build\distributions\google-calendar-tools-shadow-1.0.tar` and `build\distributions\google-calendar-tools-shadow-1.0.zip` and start the application using the batch scripts provided in the `bin` subdirectory of the archive.
 
+* When you run the tool for the first time you will need to grant access to your Google Account to the application. 
+For this, a browser window will open where you do that.
+Once, permissions have been granted, the tokens used by the tool are stored in a subdirectory named _tokens_.
+If this directory is deleted, you will need to grant access rights again.
+
 ## Sample Usage
 The samples assume the file `credentials.json` is placed in the same directory as the tool.
 
