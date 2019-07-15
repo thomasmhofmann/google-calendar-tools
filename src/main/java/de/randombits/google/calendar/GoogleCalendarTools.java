@@ -42,7 +42,7 @@ import picocli.CommandLine.Spec;
 import picocli.CommandLine.Model.CommandSpec;
 
 @Command(name = "GoogleCalendarTools", synopsisSubcommandLabel = "COMMAND",
-        mixinStandardHelpOptions = true, version = "1.0",
+        mixinStandardHelpOptions = true, version = "1.0.0",
         description = "Carries out different actions against the Google Calendar API.")
 public class GoogleCalendarTools implements Callable<Integer> {
 
