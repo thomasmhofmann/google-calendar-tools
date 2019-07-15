@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.security.GeneralSecurityException;
-import java.time.Duration;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
@@ -67,9 +66,6 @@ public class GoogleCalendarTools implements Callable<Integer> {
             description = "Do not actually manipulate the calendar. Default is ${DEFAULT-VALUE}.")
     private boolean dryRun;
 
-    @Option(names = {"-i", "--interval"},
-            description = "Time to wait between API calls. Default is ${DEFAULT-VALUE}.")
-    private Duration requestInterval = Duration.ofSeconds(3);
 
     @Option(names = {"-f", "--client-credentials"}, required = true,
             description = "JSON file with client credentials necessary to access the Google APIs.")
