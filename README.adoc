@@ -1,4 +1,4 @@
-:version: '1.0.0'
+:version: 1.0.0
 
 # google-calendar-tools
 
@@ -33,8 +33,8 @@ As an alternative you can do these steps manually in the https://console.cloud.g
 _GoogleCalendarTools_ supports the following functionality:
 
 * *Listing the calendars of your account*. This is useful to get the calendar ID associated with the calendars. You need them for the other commands.
-The primary calendar can be used without knowing the real ID by using the artifical ID `primary`. This is also the default for all commands needing a calendar ID when non is passed to the tool
-* *Listing events of a calendar. There is an option to switch between summary or detailed results.
+The primary calendar can be used without knowing the real ID by using the artifical ID `primary`. This is also the default for all commands needing a calendar ID when non is passed to the tool.
+* *Listing events of a calendar*. There is an option to switch between summary or detailed results.
 * *Touching calendars entries*. This changes the summary of the calendar entry and reverts that change again. This will mark the calendar entry as being changed and it will thus be synched (to a smartphone for example) even if it is way back in the past.
 * *Deleting calendar entries*. This is useful for batch-deleting entries.
 * *Moving calendar entries*. This allows for moving calendar entries from one calendar to another (e.g. from private to work calendar).
@@ -47,7 +47,7 @@ The primary calendar can be used without knowing the real ID by using the artifi
 * When a command is used that will modify calendar entries, the tool will first read entries from the calendar specified (to get the IDs of the entries that should be modified).
 In a second phase the entries are manipulated. You can tell the tool to do a _dry-run_ to make sure the correct entries will be processed. In dry-run mode no manipulations will be done.
 * The client configuration file must be passed to the tool.
-* Google APIs have a rate limit / quota. By default currently 500 API calls per 100 seconds are allowed. A rate limit to use can be set (number of API calles per second).
+* Google APIs have a rate limit / quota. By default currently 500 API calls per 100 seconds are allowed. A rate limit to use can be set (number of API calles per second). There is a way to increase the quota but it never worked for me when I tried (tips are welcome).
 * A read-timeout for API calls can be specified.
 
 ### Technical Details
@@ -66,7 +66,7 @@ The https://github.com/johnrengelman/shadow[Gradle Shadow plugin] is used to bui
 ----
 java -jar google-calendar-tools-{version}-all.jar
 ----
-* You can also unpack the generated distribution archives `build\distributions\google-calendar-tools-shadow-1.0.tar` and `build\distributions\google-calendar-tools-shadow-1.0.zip` and start the application using the batch scripts provided in the `bin` subdirectory of the archive.
+* You can also unpack the generated distribution archives `build\distributions\google-calendar-tools-shadow-{version}.tar` and `build\distributions\google-calendar-tools-shadow-{version}.zip` and start the application using the batch scripts provided in the `bin` subdirectory of the archive.
 
 * When you run the tool for the first time you will need to grant access to your Google Account to the application. 
 For this, a browser window will open where you do that.
