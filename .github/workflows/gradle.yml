@@ -26,7 +26,6 @@ jobs:
       run: ./gradlew build
     - uses: AButler/upload-release-assets@v2.0
       with:
-        files:
-           'distribution/*'
-           repo-token: ${{ secrets.GITHUB_TOKEN }}
+        files:'distribution/*'
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
     
