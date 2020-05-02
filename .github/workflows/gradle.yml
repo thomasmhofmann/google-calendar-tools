@@ -24,8 +24,7 @@ jobs:
       run: chmod +x gradlew
     - name: Build with Gradle
       run: ./gradlew build
-    - name: publish:
-      uses: AButler/upload-release-assets@v2.0
+    - uses: AButler/upload-release-assets@v2.0
       with:
         files:
            'distribution/*'
