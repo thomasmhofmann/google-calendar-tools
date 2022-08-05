@@ -101,7 +101,7 @@ The `--timed-events` option tells the tool to not process events with a specific
 
 ### Deleting Calendar Entries
 The sample uses the default (primary) calendar.
-Only calendar entries between 2006-05-01 (`-s`) and 2006-10-16 (`-e`) are processed. 
+Only calendar entries between 2000-05-01 (`-s`) and 2019-10-16 (`-e`) are processed. 
 In addition, only entries that contain the keyword _Timereport_ (`-k`) are deleted.
 ----
 -f=credentials.json delete -s=2000-05-01 -e=2019-10-16 -k=Timereport
